@@ -3,6 +3,10 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
+import logging
+
+logger = logging.getLogger('mdjango')
+
 
 
 class UserType(DjangoObjectType):
@@ -23,6 +27,7 @@ class CreateUser(graphene.Mutation):
             username=username,
             email=email,
         )
+        logger.info('123444444')
         user.set_password(password)
         user.save()
 

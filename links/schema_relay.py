@@ -7,6 +7,10 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 from links.models import Link, Vote
 
+import logging
+
+logger = logging.getLogger('mdjango')
+
 
 class LinkFilter(django_filters.FilterSet):
     class Meta:
@@ -35,7 +39,7 @@ class RelayCreateLink(graphene.relay.ClientIDMutation):
 
     def mutate_and_get_payload(self, info, **input):
         user = info.context.user or None
-
+        logger.info('12345 上山打老虎')
         link = Link(
             url=input.get('url'),
             description=input.get('description'),

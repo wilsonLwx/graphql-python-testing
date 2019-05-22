@@ -113,7 +113,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -134,4 +133,39 @@ STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {  # 格式化
+        'simple': {
+            'format': '[%(asctime)s] %(filename)s %(lineno)d-->%(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'console': {
+            'format': '[%(asctime)s][%(levelname)s] %(pathname)s %(lineno)d -> %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
+    'handlers': {  # 处理器
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'fileHandler': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'simple',
+            'filename': 'art.log'
+        }
 
+    },
+    'loggers': {  # 记录器
+        'mdjango': {
+            'handlers': ['console', 'fileHandler'],
+            'level': 'INFO',
+            'propagate': False
+        }
+
+    }
+}
